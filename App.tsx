@@ -1,21 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { ReactElement } from 'react';
+import { NavigationContainer } from '@react-navigation/native'
+import { StatusBar } from 'react-native';
+import AppLoading from 'expo-app-loading'
+import { useFonts } from 'expo-font'
+import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
+import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani'
 
-export default function App() {
+import Background from "./src/components/Background";
+
+import Routes from "./src/routes/app.routes";
+import AppProvider from "./src/context";
+
+export default function App(): ReactElement {
+  const [loaded] = useFonts({Inter_400Regular, Inter_500Medium, Rajdhani_500Medium, Rajdhani_700Bold})
+
+  if (!loaded) {
+    return <AppLoading/>
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <AppProvider>
+          <StatusBar barStyle="light-content" backgroundColor="transparent" translucent/>
+          <Background>
+            <Routes/>
+          </Background>
+        </AppProvider>
+      </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
