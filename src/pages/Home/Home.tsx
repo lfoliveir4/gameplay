@@ -52,7 +52,7 @@ export default function Home({}: HomeProps): ReactElement {
         setIsModalLogoutVisible(false)
         signOut()
       },
-      [signOut, navigation],
+      [signOut, isModalLogoutVisible],
   );
 
   async function loadSchedulingServers() {
